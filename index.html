@@ -1568,13 +1568,15 @@ function ImageSlot({
   const [src, setSrc] = useState(() => imgStore[slotId] || null);
   const [mode, setMode] = useState("idle");
   const [draft, setDraft] = useState("");
+  const fileRef = useRef(null);
 
   const SUPABASE_URL = "https://empwyvqeleipsjvbgaem.supabase.co";
   const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtcHd5dnFlbGVpcHNqdmJnYWVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5OTExMDMsImV4cCI6MjA5NTU2NzEwM30.CbgUwf3rK9fOwM7tQhhectol15iJQwPX8ecljzZhH0U";
-  const fileRef = useRef(null);
+  const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/df12iqbom/image/upload";
+  const CLOUDINARY_UPLOAD_PRESET = "dr-rasha-clinic";
 
   React.useEffect(() => {
-    fetch(`${SUPABASE_URL}/rest/v1/audit_images?slot_id=eq.${slotId}&select=image_url`, {
+    fetch(`${SUPABASE_URL}/rest/v1/audit_images?slot_id=eq.${encodeURIComponent(slotId)}&select=image_url`, {
       headers: {
         apikey: SUPABASE_KEY,
         Authorization: `Bearer ${SUPABASE_KEY}`
@@ -1582,12 +1584,12 @@ function ImageSlot({
     })
       .then(res => res.json())
       .then(data => {
-        if (data && data[0] && data[0].image_url) {
+        if (Array.isArray(data) && data[0] && data[0].image_url) {
           imgStore[slotId] = data[0].image_url;
           setSrc(data[0].image_url);
         }
       })
-      .catch(() => {});
+      .catch(err => console.error("Supabase load error:", err));
   }, [slotId]);
 
   function save(val) {
@@ -1595,26 +1597,29 @@ function ImageSlot({
     setSrc(val);
     setMode("idle");
 
-    fetch(`${SUPABASE_URL}/rest/v1/audit_images?slot_id=eq.${slotId}`, {
+    fetch(`${SUPABASE_URL}/rest/v1/audit_images?slot_id=eq.${encodeURIComponent(slotId)}`, {
       method: "DELETE",
       headers: {
         apikey: SUPABASE_KEY,
         Authorization: `Bearer ${SUPABASE_KEY}`
       }
-    }).then(() => {
-      fetch(`${SUPABASE_URL}/rest/v1/audit_images`, {
+    })
+      .then(() => fetch(`${SUPABASE_URL}/rest/v1/audit_images`, {
         method: "POST",
         headers: {
           apikey: SUPABASE_KEY,
           Authorization: `Bearer ${SUPABASE_KEY}`,
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          Prefer: "return=representation"
         },
         body: JSON.stringify({
           slot_id: slotId,
           image_url: val
         })
-      });
-    });
+      }))
+      .then(res => res.json())
+      .then(data => console.log("Supabase save result:", data))
+      .catch(err => console.error("Supabase save error:", err));
   }
 
   function clear() {
@@ -1622,13 +1627,13 @@ function ImageSlot({
     setSrc(null);
     setMode("idle");
 
-    fetch(`${SUPABASE_URL}/rest/v1/audit_images?slot_id=eq.${slotId}`, {
+    fetch(`${SUPABASE_URL}/rest/v1/audit_images?slot_id=eq.${encodeURIComponent(slotId)}`, {
       method: "DELETE",
       headers: {
         apikey: SUPABASE_KEY,
         Authorization: `Bearer ${SUPABASE_KEY}`
       }
-    });
+    }).catch(err => console.error("Supabase clear error:", err));
   }
 
   function handleFile(e) {
@@ -1638,9 +1643,9 @@ function ImageSlot({
 
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("upload_preset", "dr-rasha-clinic");
+    formData.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
 
-    fetch("https://api.cloudinary.com/v1_1/df12iqbom/image/upload", {
+    fetch(CLOUDINARY_URL, {
       method: "POST",
       body: formData
     })
@@ -1649,10 +1654,12 @@ function ImageSlot({
         if (data.secure_url) {
           save(data.secure_url);
         } else {
+          console.error("Cloudinary upload error:", data);
           alert("Upload failed. Check Cloudinary settings.");
         }
       })
-      .catch(() => {
+      .catch(err => {
+        console.error("Cloudinary upload error:", err);
         alert("Upload failed. Please try again.");
       });
   }
