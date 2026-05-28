@@ -1583,9 +1583,25 @@ function ImageSlot({
     const file = e.target.files[0];
     if (!file) return;
     e.target.value = "";
-    const reader = new FileReader();
-    reader.onload = ev => save(ev.target.result);
-    reader.readAsDataURL(file);
+  const formData = new FormData();
+formData.append("file", file);
+formData.append("upload_preset", "dr-rasha-clinic");
+
+fetch("https://api.cloudinary.com/v1_1/df12iqbom/image/upload", {
+  method: "POST",
+  body: formData
+})
+  .then(res => res.json())
+  .then(data => {
+    if (data.secure_url) {
+      save(data.secure_url);
+    } else {
+      alert("Upload failed. Check Cloudinary settings.");
+    }
+  })
+  .catch(() => {
+    alert("Upload failed. Please try again.");
+  });
   }
   const menu = mode === "menu" && /*#__PURE__*/React.createElement("div", {
     style: {
