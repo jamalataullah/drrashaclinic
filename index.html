@@ -1433,6 +1433,247 @@ const AUDIT = {
       }]
     }
   }
+,
+  about: {
+    desktop: {
+      intro: "The About page has strong premium brand assets, but the page currently relies on long editorial copy and repeated practitioner information rather than a clear credibility-to-consultation journey.",
+      working: ["Premium clinic and practitioner photography creates a strong high-end impression", "Founder-led content gives the page a clear human anchor", "Awards and press mentions provide valuable third-party credibility", "The team section helps users understand there is more than one practitioner behind the clinic"],
+      notWorking: ["Large text blocks create scan fatigue and bury the most persuasive proof points", "The page lacks a clear above-fold booking path once users move past the hero", "Practitioner credentials, specialisms, and trust markers are not summarised in a scannable format", "Team cards feel visually disconnected from treatment journeys, so users cannot easily choose who is relevant to their concern", "Important proof signals such as awards, press, reviews, and clinical qualifications are present but not prioritised"],
+      recommended: {
+        intro: "Restructure the About page around trust-building modules that help users quickly understand who the clinic is, why it is credible, and how to take the next step.",
+        items: ["Hero — Short founder-led positioning statement with 'Book Consultation' and 'Meet the Team' CTAs", "Trust strip — Awards, press mentions, patient review rating, and location within the first viewport", "Founder profile — Dr Rasha credentials, specialisms, and treatment focus summarised in compact proof cards", "Team grid — Practitioner cards with role, specialisms, credentials, and 'View treatments' or 'Book with this practitioner' actions", "Social proof — Patient testimonials and press logos placed before the long story content", "Reduced copy — Convert long paragraphs into short sections with clear headings and expandable detail"]
+      }
+    },
+    mobile: {
+      intro: "The mobile About page suffers from excessive vertical length and oversized content blocks, making it difficult for users to scan practitioner credibility or reach a conversion action quickly.",
+      working: ["Brand identity and photography remain strong on mobile", "Team imagery adds personality and helps the clinic feel human", "The page contains useful credibility content once users reach it"],
+      notWorking: ["Typography and image scale create very long scroll depth", "Key practitioner information is split across long stacked sections rather than concise cards", "CTAs appear too late relative to the amount of copy", "Awards and credentials are not presented as quick-glance trust signals", "Users have to work hard to connect practitioner information back to treatments or booking"],
+      recommended: {
+        intro: "Optimise the mobile page for quick credibility scanning and repeated conversion opportunities.",
+        items: ["Add a sticky bottom 'Book Consultation' CTA after the first scroll", "Convert team profiles into compact mobile cards with expandable bio detail", "Surface credentials and awards as small badges directly under each practitioner name", "Use accordions for long clinic story content", "Add practitioner specialism tags so users can identify relevance without reading full bios"]
+      }
+    },
+    research: {
+      intro: "Research principles supporting the About page recommendations.",
+      findings: [{
+        source: "NN/G",
+        org: "Nielsen Norman Group",
+        label: "Credibility and Trust on the Web",
+        detail: "Users evaluate credibility rapidly and rely heavily on visible expertise, third-party proof, and professional presentation. On a high-consideration clinic page, credentials and proof should be surfaced before long brand storytelling.",
+        url: "https://www.nngroup.com/articles/prominence-interpretation-theory/"
+      }, {
+        source: "NN/G",
+        org: "Nielsen Norman Group",
+        label: "How Users Read on the Web",
+        detail: "Users scan rather than read linearly. Long paragraphs reduce comprehension and make it harder for users to extract decision-critical information such as qualifications, specialisms, and next steps.",
+        url: "https://www.nngroup.com/articles/how-users-read-on-the-web/"
+      }, {
+        source: "NN/G",
+        org: "Nielsen Norman Group",
+        label: "Recognition Rather Than Recall",
+        detail: "Practitioner pages should show users obvious cues about role, expertise, and relevance, rather than forcing them to remember details from long biographies while deciding whether to book.",
+        url: "https://www.nngroup.com/articles/recognition-and-recall/"
+      }]
+    },
+    competitors: [{
+      name: "The Cadogan Clinic",
+      device: "Desktop",
+      pros: [],
+      cons: [],
+      context: "Uses consultant-led credibility, clear practitioner profiles, and structured treatment pathways. Relevant because it connects medical authority directly to conversion journeys."
+    }, {
+      name: "111 Harley St.",
+      device: "Desktop",
+      pros: [],
+      cons: [],
+      context: "Strong luxury positioning with founder-led authority, premium imagery, and clear treatment-led navigation. Useful reference for balancing brand story with booking intent."
+    }, {
+      name: "The Cosmetic Skin Clinic",
+      device: "Mobile",
+      pros: [],
+      cons: [],
+      context: "Practitioner credibility, treatment expertise, and patient reassurance are packaged into scannable modules that work better on mobile than long-form biographies."
+    }, {
+      name: "Dr David Jack",
+      device: "Desktop",
+      pros: [],
+      cons: [],
+      context: "Editorial premium aesthetic with clear practitioner authority and simple CTAs. Good benchmark for making a founder-led clinic feel both aspirational and commercially focused."
+    }],
+    cro: [{
+      title: "Credential summary cards above the long story content",
+      detail: "Add 3–4 compact proof cards near the top: awards, years of experience, treatment specialisms, and verified patient rating. This gives users confidence before they commit to reading the full clinic story."
+    }, {
+      title: "Practitioner specialism tags",
+      detail: "Add tags such as Injectables, Skin, Laser, Body, and Wellness to each team card. Users can then identify the right practitioner faster and move towards a consultation with less hesitation."
+    }, {
+      title: "Repeated booking prompts after trust moments",
+      detail: "Place 'Book Consultation' after the founder profile and again after the team section. These are natural decision points where trust has just been built and user intent is highest."
+    }, {
+      title: "Press and awards strip",
+      detail: "Move Forbes, Safety in Beauty, and other third-party proof into a compact strip near the top. This converts existing credibility content from hidden reading material into immediate trust evidence."
+    }]
+  },
+  finance: {
+    desktop: {
+      intro: "The PLIM Finance page contains useful information, but it is presented as a long text document rather than a conversion-focused finance journey that reassures users and helps them act.",
+      working: ["The page clearly explains the available PLIM options", "Eligibility rules and deposit requirements are included", "The process steps are documented in detail", "The content gives users practical information about how finance works"],
+      notWorking: ["No strong hero section or above-fold CTA to orient users", "The page is text-heavy and lacks visual hierarchy", "No payment examples or calculator are provided, making affordability hard to understand", "Finance reassurance signals are weak for a high-trust decision", "The plan options are buried in bullets rather than comparison cards", "No FAQs are visible to address common concerns around eligibility, credit checks, or approval"],
+      recommended: {
+        intro: "Rebuild the finance page as an assisted decision tool rather than an information page.",
+        items: ["Hero — 'Spread the cost of your treatment' with 'Check eligibility' and 'Ask about finance' CTAs", "Finance reassurance strip — Fast application, UK resident requirement, instant decision, clear deposit guidance", "Plan comparison cards — PLIM 1, PLIM 3, PLIM 6, PLIM 8 displayed side-by-side with deposit, term, and minimum spend", "Payment examples — Example treatments and indicative monthly breakdowns", "How it works — 4-step visual timeline from consultation to approval to treatment", "FAQs — Eligibility, credit checks, deposit, approval time, and what happens if the application is declined"]
+      }
+    },
+    mobile: {
+      intro: "On mobile, the finance page becomes a long text scroll with limited scannability and no persistent action route for users who are ready to enquire.",
+      working: ["The finance information remains readable", "Bullet formatting helps more than dense paragraphs", "The page includes practical application steps"],
+      notWorking: ["Users must scroll through a lot of text before reaching the full picture", "No sticky or repeated CTA is available", "Plan differences are hard to compare in a single-column layout", "The page lacks reassurance around sensitive finance topics", "Important thresholds such as £500, £3,000, and £8,000 are not visually highlighted"],
+      recommended: {
+        intro: "Prioritise mobile finance content around quick reassurance and simple plan comparison.",
+        items: ["Add sticky 'Check eligibility' CTA", "Use accordion cards for PLIM 1, 3, 6, and 8", "Highlight minimum spend thresholds in coloured badges", "Add a simple 'Which plan might apply?' chooser", "Move the full process explanation below the comparison and CTA"]
+      }
+    },
+    research: {
+      intro: "Research principles supporting the finance page recommendations.",
+      findings: [{
+        source: "Baymard",
+        org: "Baymard Institute",
+        label: "Price Clarity and Total Cost",
+        detail: "Users need clear cost, fees, and payment expectations before they feel confident progressing. When cost information is fragmented or difficult to compare, hesitation increases sharply.",
+        url: "https://baymard.com/blog/displaying-total-order-cost"
+      }, {
+        source: "NN/G",
+        org: "Nielsen Norman Group",
+        label: "Decision-Making and Cognitive Load",
+        detail: "Dense information increases cognitive load and slows decision-making. For finance content, comparison tables, summaries, and progressive disclosure help users make sense of complex rules without feeling overwhelmed.",
+        url: "https://www.nngroup.com/articles/minimize-cognitive-load/"
+      }, {
+        source: "NN/G",
+        org: "Nielsen Norman Group",
+        label: "Accordions on Mobile",
+        detail: "Accordions can work well when users need to browse answers to specific questions. Finance FAQs and plan details are good candidates because users arrive with distinct concerns around eligibility, approval, and repayments.",
+        url: "https://www.nngroup.com/articles/accordions-complex-content/"
+      }]
+    },
+    competitors: [{
+      name: "MYA Cosmetic Surgery",
+      device: "Desktop",
+      pros: [],
+      cons: [],
+      context: "Finance content is framed around affordability and consultation intent, with clearer routes from information to enquiry. Useful reference for high-consideration cosmetic journeys."
+    }, {
+      name: "Transform Hospital Group",
+      device: "Desktop",
+      pros: [],
+      cons: [],
+      context: "Presents payment options with more reassurance and patient-friendly framing, reducing anxiety around a sensitive financial decision."
+    }, {
+      name: "Cosmedics",
+      device: "Mobile",
+      pros: [],
+      cons: [],
+      context: "Uses clearer service-led conversion prompts and shorter sections, which is relevant for making finance content easier to act on from mobile."
+    }, {
+      name: "Treatwell",
+      device: "Mobile",
+      pros: [],
+      cons: [],
+      context: "Strong benchmark for reducing service decision friction with clear pricing, availability cues, and conversion-focused content hierarchy."
+    }],
+    cro: [{
+      title: "Finance plan comparison cards",
+      detail: "Turn PLIM 1, 3, 6, and 8 into cards with deposit, repayment period, and minimum spend. Users should be able to compare plans in under 10 seconds without reading all bullets."
+    }, {
+      title: "Treatment-specific payment examples",
+      detail: "Add example monthly breakdowns for common treatment values. This makes finance tangible and helps users understand whether a consultation is realistic before contacting the clinic."
+    }, {
+      title: "Check eligibility CTA above the fold",
+      detail: "A finance page should not wait until the bottom to convert. Add a clear 'Check eligibility' or 'Ask about finance' CTA in the hero with reassurance micro-copy about the process length."
+    }, {
+      title: "Finance FAQ block",
+      detail: "Add FAQs covering credit checks, approval time, deposits, eligibility, and declined applications. These objections are likely conversion blockers and should be answered before enquiry."
+    }]
+  },
+  roomRental: {
+    desktop: {
+      intro: "The Room Rental page has a strong underlying proposition, but the current page behaves like a basic contact form rather than a premium B2B landing page for practitioners.",
+      working: ["The headline clearly addresses practitioners looking for a professional space", "The room photography communicates a premium clinical environment", "The form is simple and low-friction", "The page explains that the service is aimed at medical consultants, doctors, therapists, and specialists"],
+      notWorking: ["The room image is separated from the strongest value proposition on desktop", "No pricing, availability, or booking model is shown", "No room specifications or included amenities are listed", "No proof that other practitioners use or trust the space", "The form appears before enough reassurance has been built", "The page lacks B2B value messaging around growth, credibility, and patient experience"],
+      recommended: {
+        intro: "Reframe the page as a premium clinic-space landing page with stronger commercial proof and clearer enquiry motivation.",
+        items: ["Hero — 'Premium clinic rooms in Knightsbridge' with room image, core benefits, and 'Enquire about availability' CTA", "Feature cards — Reception support, luxury interiors, flexible rental, treatment-ready rooms, central Knightsbridge location", "Who it is for — Injectors, doctors, consultants, therapists, visiting specialists", "Room gallery — Multiple images showing treatment room, waiting area, reception, and patient experience", "What is included — Equipment, amenities, support, booking flexibility, opening hours", "Commercial proof — Practitioner testimonial, limited availability, and location credibility", "Lead form — Reposition after value proof with stronger CTA copy: 'Request room availability' or 'Book a viewing'"]
+      }
+    },
+    mobile: {
+      intro: "The mobile Room Rental page stacks content logically, but the oversized typography and early form placement create a long, effortful journey before the user has enough commercial confidence to enquire.",
+      working: ["The room image is strong and visually aspirational", "The headline is clear and relevant", "The form fields are simple", "The page avoids unnecessary distractions"],
+      notWorking: ["Headline scale creates excessive vertical scroll before the user reaches value details", "The form appears before room benefits and proof points", "No quick-scan benefit list is visible above the form", "No pricing or availability cue is shown", "The CTA copy 'Submit' is generic and weak for a premium B2B lead"],
+      recommended: {
+        intro: "Optimise mobile around quick qualification and confidence before showing the form.",
+        items: ["Reduce mobile headline size and line height", "Add 4 benefit chips directly below the intro copy", "Move the form beneath room features and 'what is included'", "Change CTA from 'Submit' to 'Request availability'", "Add WhatsApp or phone CTA for practitioners who want a faster response"]
+      }
+    },
+    research: {
+      intro: "Research principles supporting the room rental page recommendations.",
+      findings: [{
+        source: "NN/G",
+        org: "Nielsen Norman Group",
+        label: "Value Proposition Visibility",
+        detail: "Users need to understand what is offered, who it is for, and why it is valuable before they are asked to act. A form-first approach works best only when intent is already very high.",
+        url: "https://www.nngroup.com/articles/value-proposition/"
+      }, {
+        source: "NN/G",
+        org: "Nielsen Norman Group",
+        label: "Form Usability",
+        detail: "Forms convert better when users understand the value exchange and the requested action is specific. 'Submit' is weaker than task-specific CTA copy such as 'Request availability' or 'Book a viewing'.",
+        url: "https://www.nngroup.com/articles/web-form-design/"
+      }, {
+        source: "Baymard",
+        org: "Baymard Institute",
+        label: "Product Page Decision Information",
+        detail: "For high-consideration decisions, users need practical decision information before converting. Room rental is not e-commerce, but the same principle applies: amenities, pricing, availability, and proof should appear before the enquiry form.",
+        url: "https://baymard.com/blog/product-page-ux"
+      }]
+    },
+    competitors: [{
+      name: "The Clinic Space",
+      device: "Desktop",
+      pros: [],
+      cons: [],
+      context: "Strong reference for clinic-room discovery: room features, location, suitability, and enquiry flow are positioned as a commercial decision rather than a generic contact form."
+    }, {
+      name: "Harley Street Healthcare Group",
+      device: "Desktop",
+      pros: [],
+      cons: [],
+      context: "Uses location credibility and professional healthcare framing to make space rental feel premium and medically credible."
+    }, {
+      name: "Hubble",
+      device: "Desktop",
+      pros: [],
+      cons: [],
+      context: "Good B2B space-rental benchmark for surfacing amenities, location, flexibility, and availability as scannable decision points."
+    }, {
+      name: "WeWork",
+      device: "Mobile",
+      pros: [],
+      cons: [],
+      context: "Strong mobile pattern for commercial space pages: image-led modules, benefit chips, location proof, and clear enquiry CTAs."
+    }],
+    cro: [{
+      title: "Replace generic submit with availability-led CTA",
+      detail: "Change the form button from 'Submit' to 'Request availability' or 'Book a viewing'. This clarifies the next step and makes the action feel more valuable and less like a generic contact request."
+    }, {
+      title: "Add room feature cards before the form",
+      detail: "Surface the key conversion drivers before asking for details: Knightsbridge location, flexible booking, reception support, luxury interiors, and treatment-ready rooms."
+    }, {
+      title: "Add pricing or qualification guidance",
+      detail: "Even a 'Pricing available on request' or 'Flexible day and session rates' statement reduces uncertainty. Users evaluating professional space need commercial expectations before enquiring."
+    }, {
+      title: "Add practitioner social proof",
+      detail: "A short testimonial from a renting practitioner would reduce perceived risk and make the offer feel proven. For B2B pages, peer validation is a major conversion driver."
+    }]
+  }
 };
 
 // ─── Section config ───────────────────────────────────────────────────────────
@@ -1455,6 +1696,21 @@ const SECTIONS = [{
   id: "clinic",
   label: "Clinic Page",
   icon: "Users",
+  tabs: ["Desktop", "Mobile", "Research", "Competitors", "CRO"]
+}, {
+  id: "about",
+  label: "About Page",
+  icon: "Users",
+  tabs: ["Desktop", "Mobile", "Research", "Competitors", "CRO"]
+}, {
+  id: "finance",
+  label: "PLIM Finance",
+  icon: "BarChart",
+  tabs: ["Desktop", "Mobile", "Research", "Competitors", "CRO"]
+}, {
+  id: "room-rental",
+  label: "Room Rental",
+  icon: "Home",
   tabs: ["Desktop", "Mobile", "Research", "Competitors", "CRO"]
 }, {
   id: "discovery",
@@ -3001,6 +3257,46 @@ function App() {
         screenshotLabel: "Current clinic page \u2014 mobile",
         proposedLabel: "Proposed clinic page \u2014 mobile layout",
         slotPrefix: "clinic-mobile"
+      });
+      if (activeTab === "Research") return /*#__PURE__*/React.createElement(ResearchPanel, {
+        data: d.research
+      });
+      if (activeTab === "Competitors") return /*#__PURE__*/React.createElement(CompetitorsPanel, {
+        competitors: d.competitors
+      });
+      if (activeTab === "CRO") return /*#__PURE__*/React.createElement(CROPanel, {
+        items: d.cro
+      });
+    }
+
+    if (activeSection === "about" || activeSection === "finance" || activeSection === "room-rental") {
+      const key = activeSection === "room-rental" ? "roomRental" : activeSection;
+      const d = AUDIT[key];
+      const labels = {
+        about: {
+          desktop: ["Current About page — desktop", "Proposed About page credibility journey — desktop", "about-desktop"],
+          mobile: ["Current About page — mobile", "Proposed About page — mobile", "about-mobile"]
+        },
+        finance: {
+          desktop: ["Current PLIM Finance page — desktop", "Proposed finance page layout — desktop", "finance-desktop"],
+          mobile: ["Current PLIM Finance page — mobile", "Proposed finance page — mobile", "finance-mobile"]
+        },
+        roomRental: {
+          desktop: ["Current Room Rental page — desktop", "Proposed room rental landing page — desktop", "room-rental-desktop"],
+          mobile: ["Current Room Rental page — mobile", "Proposed room rental page — mobile", "room-rental-mobile"]
+        }
+      }[key];
+      if (activeTab === "Desktop") return /*#__PURE__*/React.createElement(AuditFindingsPanel, {
+        data: d.desktop,
+        screenshotLabel: labels.desktop[0],
+        proposedLabel: labels.desktop[1],
+        slotPrefix: labels.desktop[2]
+      });
+      if (activeTab === "Mobile") return /*#__PURE__*/React.createElement(AuditFindingsPanel, {
+        data: d.mobile,
+        screenshotLabel: labels.mobile[0],
+        proposedLabel: labels.mobile[1],
+        slotPrefix: labels.mobile[2]
       });
       if (activeTab === "Research") return /*#__PURE__*/React.createElement(ResearchPanel, {
         data: d.research
