@@ -1580,13 +1580,12 @@ function ImageSlot({
     setMode("idle");
   }
   function handleFile(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  e.target.value = "";
-  const reader = new FileReader();
-  reader.onload = ev => save(ev.target.result);
-  reader.readAsDataURL(file);
-}
+    const file = e.target.files[0];
+    if (!file) return;
+    e.target.value = "";
+    const reader = new FileReader();
+    reader.onload = ev => save(ev.target.result);
+    reader.readAsDataURL(file);
   }
   const menu = mode === "menu" && /*#__PURE__*/React.createElement("div", {
     style: {
