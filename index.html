@@ -1565,15 +1565,52 @@ function ImageSlot({
   height = 220,
   frame = "browser"
 }) {
-  const [src, setSrc] = useState(() => imgStore[slotId] || null);
-  const [mode, setMode] = useState("idle");
-  const [draft, setDraft] = useState("");
-  const fileRef = useRef(null);
-  function save(val) {
-    imgStore[slotId] = val;
-    setSrc(val);
-    setMode("idle");
-  }
+ const [draft, setDraft] = useState("");
+
+const SUPABASE_URL = "https://empwyvqeleipsjvbgaem.supabase.co";
+const SUPABASE_KEY = "sb_publishable_BaRBAd1uMmzKKDVm5X_0Mw_XfukNnch";
+React.useEffect(() => {
+  fetch(`${SUPABASE_URL}/rest/v1/audit_images?slot_id=eq.${slotId}&select=image_url`, {
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`
+    }
+  })
+    .then(res => res.json())
+    .then(data => {
+      if (data && data[0] && data[0].image_url) {
+        imgStore[slotId] = data[0].image_url;
+        setSrc(data[0].image_url);
+      }
+    });
+}, [slotId]);
+const fileRef = useRef(null);
+function save(val) {
+  imgStore[slotId] = val;
+  setSrc(val);
+  setMode("idle");
+
+  fetch(`${SUPABASE_URL}/rest/v1/audit_images?slot_id=eq.${slotId}`, {
+    method: "DELETE",
+    headers: {
+      apikey: SUPABASE_KEY,
+      Authorization: `Bearer ${SUPABASE_KEY}`
+    }
+  }).then(() => {
+    fetch(`${SUPABASE_URL}/rest/v1/audit_images`, {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        slot_id: slotId,
+        image_url: val
+      })
+    });
+  });
+}
   function clear() {
     delete imgStore[slotId];
     setSrc(null);
