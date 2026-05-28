@@ -1568,25 +1568,95 @@ function ImageSlot({
   const [src, setSrc] = useState(() => imgStore[slotId] || null);
   const [mode, setMode] = useState("idle");
   const [draft, setDraft] = useState("");
+
+  const SUPABASE_URL = "https://empwyvqeleipsjvbgaem.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_BaRBAd1uMmzKKDVm5X_0Mw_XfukNnch";
   const fileRef = useRef(null);
+
+  React.useEffect(() => {
+    fetch(`${SUPABASE_URL}/rest/v1/audit_images?slot_id=eq.${slotId}&select=image_url`, {
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`
+      }
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data && data[0] && data[0].image_url) {
+          imgStore[slotId] = data[0].image_url;
+          setSrc(data[0].image_url);
+        }
+      })
+      .catch(() => {});
+  }, [slotId]);
+
   function save(val) {
     imgStore[slotId] = val;
     setSrc(val);
     setMode("idle");
+
+    fetch(`${SUPABASE_URL}/rest/v1/audit_images?slot_id=eq.${slotId}`, {
+      method: "DELETE",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`
+      }
+    }).then(() => {
+      fetch(`${SUPABASE_URL}/rest/v1/audit_images`, {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: `Bearer ${SUPABASE_KEY}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          slot_id: slotId,
+          image_url: val
+        })
+      });
+    });
   }
+
   function clear() {
     delete imgStore[slotId];
     setSrc(null);
     setMode("idle");
+
+    fetch(`${SUPABASE_URL}/rest/v1/audit_images?slot_id=eq.${slotId}`, {
+      method: "DELETE",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`
+      }
+    });
   }
+
   function handleFile(e) {
     const file = e.target.files[0];
     if (!file) return;
     e.target.value = "";
-    const reader = new FileReader();
-    reader.onload = ev => save(ev.target.result);
-    reader.readAsDataURL(file);
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "dr-rasha-clinic");
+
+    fetch("https://api.cloudinary.com/v1_1/df12iqbom/image/upload", {
+      method: "POST",
+      body: formData
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.secure_url) {
+          save(data.secure_url);
+        } else {
+          alert("Upload failed. Check Cloudinary settings.");
+        }
+      })
+      .catch(() => {
+        alert("Upload failed. Please try again.");
+      });
   }
+
   const menu = mode === "menu" && /*#__PURE__*/React.createElement("div", {
     style: {
       position: "absolute",
