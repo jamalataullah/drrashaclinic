@@ -1821,6 +1821,7 @@ function ImageSlot({
   height = 220,
   frame = "browser"
 }) {
+  const isMobile = slotId.toLowerCase().includes("mobile");
   const [src, setSrc] = useState(() => imgStore[slotId] || null);
   const [mode, setMode] = useState("idle");
   const [draft, setDraft] = useState("");
@@ -2076,11 +2077,13 @@ e.target.value = "";
     }
   }, "Cancel"))) : src ? /*#__PURE__*/React.createElement("div", {
     style: {
-      position: "relative",
-      width: "100%",
-      height,
-      overflowY: "auto"
-    }
+      style: {
+  position: "relative",
+  width: isMobile ? 390 : "100%",
+  maxWidth: isMobile ? 390 : "100%",
+  height: isMobile ? 844 : height,
+  overflowY: "auto"
+}
   }, /*#__PURE__*/React.createElement("img", {
     src: src,
     alt: label,
@@ -2218,12 +2221,16 @@ const BrowserShot = ({
   label,
   height = 220,
   slotId
-}) => /*#__PURE__*/React.createElement(ImageSlot, {
-  slotId: slotId || label,
-  label: label,
-  height: height,
-  frame: "browser"
-});
+}) => {
+  const mobile = (slotId || label).toLowerCase().includes("mobile");
+
+  return /*#__PURE__*/React.createElement(ImageSlot, {
+    slotId: slotId || label,
+    label: label,
+    height: mobile ? 844 : height,
+    frame: mobile ? "mobile" : "browser"
+  });
+};
 const ScreenshotBox = ({
   label,
   height = 200,
