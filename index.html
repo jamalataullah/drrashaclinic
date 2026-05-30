@@ -2672,57 +2672,23 @@ function AuditFindingsPanel({
       cursor: "pointer",
       transition: "all 0.12s"
     }
- subTab === "current" && /*#__PURE__*/React.createElement("div", {
-  style: {
-    display: data.device === "mobile" ? "grid" : "block",
-    gridTemplateColumns: data.device === "mobile" ? "1fr 420px" : undefined,
-    gap: data.device === "mobile" ? 32 : undefined,
-    alignItems: "start"
-  }
-}, data.device === "mobile" ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-  style: {
-    textAlign: "left"
-  }
-}, /*#__PURE__*/React.createElement("div", {
-  style: {
-    display: "grid",
-    gridTemplateColumns: "1fr",
-    gap: 16,
-    marginTop: 0
-  }
-}, /*#__PURE__*/React.createElement(FindingCard, {
-  type: "working",
-  items: data.working
-}), /*#__PURE__*/React.createElement(FindingCard, {
-  type: "notworking",
-  items: data.notWorking
-}))), /*#__PURE__*/React.createElement("div", {
-  style: {
-    width: 390,
-    justifySelf: "end"
-  }
-}, /*#__PURE__*/React.createElement(BrowserShot, {
-  label: screenshotLabel,
-  height: 844,
-  slotId: `${slotPrefix}-current`
-}))) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BrowserShot, {
-  label: screenshotLabel,
-  height: 420,
-  slotId: `${slotPrefix}-current`
-}), /*#__PURE__*/React.createElement("div", {
-  style: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
-    gap: 16,
-    marginTop: 20
-  }
-}, /*#__PURE__*/React.createElement(FindingCard, {
-  type: "working",
-  items: data.working
-}), /*#__PURE__*/React.createElement(FindingCard, {
-  type: "notworking",
-  items: data.notWorking
-}))))
+  }, tab.label))), subTab === "current" && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(BrowserShot, {
+    label: screenshotLabel,
+    height: 420,
+    slotId: `${slotPrefix}-current`
+  }), /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gap: 16,
+      marginTop: 20
+    }
+  }, /*#__PURE__*/React.createElement(FindingCard, {
+    type: "working",
+    items: data.working
+  }), /*#__PURE__*/React.createElement(FindingCard, {
+    type: "notWorking",
+    items: data.notWorking
   }))), subTab === "recommended" && /*#__PURE__*/React.createElement("div", {
     style: {
       background: "white",
