@@ -1892,10 +1892,32 @@ function ImageSlot({
     }).catch(err => console.error("Supabase clear error:", err));
   }
 
-  function handleFile(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-    e.target.value = "";
+  async function handleFile(e) {
+    const originalFile = e.target.files[0];
+if (!originalFile) return;
+
+let file = originalFile;
+
+if (file.size > 1000000) {
+  const bitmap = await createImageBitmap(file);
+
+  const canvas = document.createElement("canvas");
+  canvas.width = bitmap.width;
+  canvas.height = bitmap.height;
+
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(bitmap, 0, 0);
+
+  file = await new Promise(resolve => {
+    canvas.toBlob(
+      blob => resolve(new File([blob], file.name, { type: "image/jpeg" }),
+      "image/jpeg",
+      0.75
+    );
+  });
+}
+
+e.target.value = "";
 
     const formData = new FormData();
     formData.append("file", file);
