@@ -3634,5 +3634,142 @@ function App() {
   root.render(React.createElement(App));
 })();
   </script>
+  <script>
+(function () {
+  const SUPABASE_URL = "https://empwyvqeleipsjvbgaem.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtcHd5dnFlbGVpcHNqdmJnYWVtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk5OTExMDMsImV4cCI6MjA5NTU2NzEwM30.CbgUwf3rK9fOwM7tQhhectol15iJQwPX8ecljzZhH0U";
+
+  let editMode = false;
+  let savedCopy = {};
+
+  function getPath(el) {
+    const parts = [];
+    while (el && el.id !== "root") {
+      const parent = el.parentElement;
+      if (!parent) break;
+      const same = Array.from(parent.children).filter(x => x.tagName === el.tagName);
+      parts.unshift(el.tagName.toLowerCase() + ":" + same.indexOf(el));
+      el = parent;
+    }
+    return parts.join("/");
+  }
+
+  function editableElements() {
+    return Array.from(document.querySelectorAll("#root h1, #root h2, #root h3, #root h4, #root p, #root li, #root td, #root th, #root div"))
+      .filter(el => {
+        const text = el.textContent.trim();
+        return text.length > 2 &&
+          el.children.length === 0 &&
+          !el.closest("button") &&
+          !el.closest("svg") &&
+          !el.closest("input") &&
+          !el.closest("textarea");
+      });
+  }
+
+  async function loadCopy() {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/audit_copy?select=id,content`, {
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`
+      }
+    });
+
+    const rows = await res.json();
+    savedCopy = {};
+    rows.forEach(row => savedCopy[row.id] = row.content);
+    applyCopy();
+  }
+
+  function applyCopy() {
+    editableElements().forEach(el => {
+      const id = getPath(el);
+      el.dataset.copyId = id;
+
+      if (savedCopy[id]) {
+        el.textContent = savedCopy[id];
+      }
+
+      el.contentEditable = editMode ? "true" : "false";
+      el.style.outline = editMode ? "1px dashed rgba(26,74,51,0.45)" : "";
+      el.style.cursor = editMode ? "text" : "";
+      el.style.background = editMode ? "rgba(234,244,238,0.35)" : "";
+    });
+  }
+
+  async function saveCopy() {
+    const rows = editableElements().map(el => ({
+      id: el.dataset.copyId || getPath(el),
+      content: el.textContent.trim(),
+      updated_at: new Date().toISOString()
+    }));
+
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/audit_copy?on_conflict=id`, {
+      method: "POST",
+      headers: {
+        apikey: SUPABASE_KEY,
+        Authorization: `Bearer ${SUPABASE_KEY}`,
+        "Content-Type": "application/json",
+        Prefer: "resolution=merge-duplicates"
+      },
+      body: JSON.stringify(rows)
+    });
+
+    if (!res.ok) {
+      alert("Copy did not save. Check Supabase policies.");
+      return;
+    }
+
+    alert("Copy saved");
+    await loadCopy();
+  }
+
+  function addEditControls() {
+    const bar = document.createElement("div");
+    bar.style.position = "fixed";
+    bar.style.right = "20px";
+    bar.style.bottom = "20px";
+    bar.style.zIndex = "99999";
+    bar.style.display = "flex";
+    bar.style.gap = "8px";
+
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit copy";
+    editBtn.style.padding = "10px 14px";
+
+    const saveBtn = document.createElement("button");
+    saveBtn.textContent = "Save copy";
+    saveBtn.style.padding = "10px 14px";
+    saveBtn.style.display = "none";
+
+    editBtn.onclick = () => {
+      editMode = !editMode;
+      editBtn.textContent = editMode ? "Exit edit" : "Edit copy";
+      saveBtn.style.display = editMode ? "block" : "none";
+      applyCopy();
+    };
+
+    saveBtn.onclick = saveCopy;
+
+    bar.appendChild(editBtn);
+    bar.appendChild(saveBtn);
+    document.body.appendChild(bar);
+  }
+
+  window.addEventListener("load", () => {
+    addEditControls();
+    loadCopy();
+
+    const observer = new MutationObserver(() => {
+      setTimeout(applyCopy, 100);
+    });
+
+    observer.observe(document.getElementById("root"), {
+      childList: true,
+      subtree: true
+    });
+  });
+})();
+</script>
 </body>
 </html>
